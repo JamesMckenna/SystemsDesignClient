@@ -44,18 +44,6 @@ const routes: Array<RouteConfig> = [
         }
       ]
   },
-  // {
-  //   path: "/Blog/:id",
-  //   name: "Blog",
-  //   component: () =>
-  //     import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue")
-  // },
-  // {
-  //   path: "/New-Blog",
-  //   name: "NewBlog",
-  //   component: () =>
-  //     import(/* webpackChunkName: "CreateBlog" */ "@/components/blog-components/CreateBlog.vue")
-  // },
   {
     path: "*",
     name: "Error",
