@@ -51,7 +51,7 @@ export default {
   --h-tag-colour: #696986;
   --shadow-text-offset: 0.0625rem 0.0625rem 0.0625rem #fff;
   --ndd-bg-colour: #dcdcdc;
-  --nav-box-shadow: 0.125rem 0.125rem 0.125rem 0.0625rem #696986;
+  --boxshadow: 0.125rem 0.125rem 0.125rem 0.0625rem #696986;
 
   --borderradius: 0.1875rem;
   --borderstyle: inset;
@@ -73,7 +73,7 @@ export default {
 }
 
 .theme-shadow {
-  box-shadow: var(--nav-box-shadow);
+  box-shadow: var(--boxshadow);
 }
 
 .theme-border {

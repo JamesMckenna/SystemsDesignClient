@@ -201,15 +201,18 @@ export default {
   width: 2rem;
   height: 1rem;
   display: block;
-  border-radius: 0.0625rem;
+  border-radius: 0.1875rem;
+  cursor: pointer;
 }
 .per-page-row input:checked + span {
   background-color: rgba(105, 105, 134, 1);
   color: #f7f7f7;
+  cursor: auto;
 }
 .per-page-row:has(label > input[type="radio"]:checked) {
   background-color: rgba(105, 105, 134, 1);
   border-radius: 0.1875rem;
+  cursor: auto;
 }
 .per-page-row label input {
   position: absolute;
@@ -238,10 +241,10 @@ export default {
 }
 .border {
   border-color: #696986;
-  border-radius: 0.0625rem;
-  border-style: inset;
+  border-radius: var(--borderradius);
+  border-style: var(--borderstyle);
   border-width: 0px;
-  box-shadow: 0.0625rem 0.0625rem 0.0625rem 0.0625rem #696986;
+  box-shadow: var(--boxshadow);
 }
 /*--------------------------320px----------------------*/
 @media (min-width: 20rem) {

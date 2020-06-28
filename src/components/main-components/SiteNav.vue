@@ -366,7 +366,7 @@ export default class SiteNav extends Vue {
     border-radius: .1875rem;
     border-style: inset;
     border-width: .10rem;
-    box-shadow: var(--nav-box-shadow);
+    box-shadow: var(--boxshadow);
 }
 #wrapTitleH1 {
     position: relative;
@@ -721,7 +721,7 @@ export default class SiteNav extends Vue {
     border-width: .10rem;
     border-radius: .1875rem;
     z-index: 400;
-    box-shadow: var(--nav-box-shadow);
+    box-shadow: var(--boxshadow);
 }
 #navLinks > li {
     width: 100%;
@@ -764,7 +764,7 @@ export default class SiteNav extends Vue {
     border-style: inset;
     border-width: .10rem;
     border-radius: .1875rem;
-    box-shadow: var(--nav-box-shadow);
+    box-shadow: var(--boxshadow);
 }
 .navDropDowns > li{
     margin: 1em 0 1em 0;
@@ -831,7 +831,7 @@ export default class SiteNav extends Vue {
     border-color: var(--ndd-bg-colour);
     border-style: inset;
     border-width: .10rem;
-    box-shadow: var(--nav-box-shadow);
+    box-shadow: var(--boxshadow);
 }
 #login > li {
 /* allows me to use margin auto in child element see #login > li > a*/
