@@ -27,7 +27,10 @@
           </div>
         </template>
         <template v-slot:right-child>
-          <p class="error"> Please be aware, ALL the blog information is MOCK / FAKE data used for development purposes</p>
+          <p class="error">
+            Please be aware, ALL the blog information is MOCK / FAKE data used
+            for development purposes
+          </p>
           <blogs-list></blogs-list>
         </template>
       </right-section>

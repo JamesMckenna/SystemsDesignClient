@@ -90,7 +90,8 @@ export default {
   cursor: pointer;
 }
 
-.theme-button:hover, svg:hover {
+.theme-button:hover,
+svg:hover {
   fill: white;
 }
 
