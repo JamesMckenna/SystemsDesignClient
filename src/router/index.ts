@@ -10,14 +10,14 @@ const routes: Array<RouteConfig> = [
     component: () =>
     import(/* webpackChunkName: "home" */ "../views/Home.vue"),
     children: [
-      {    path: "/About",
-      name: "About",
-      component: () =>
-        import(/* webpackChunkName: "home" */ "../views/Home.vue")},
-      {    path: "/Contact",
-      name: "Contact",
-      component: () =>
-        import(/* webpackChunkName: "home" */ "../views/Home.vue")}
+      {
+        path: "/About",
+        name: "About",
+      },
+      {
+        path: "/Contact",
+        name: "Contact"
+      }
     ]
   },
   {
@@ -28,14 +28,11 @@ const routes: Array<RouteConfig> = [
       children: [
         {    
           path: "/Blog/:id",
-          name: "Blog",
-          component: () =>
-            import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue")},
+          name: "Blog"
+        },
         {
             path: "/New-Blog",
-            name: "NewBlog",
-            component: () =>
-              import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue")
+            name: "NewBlog"
         }
       ]
   },
