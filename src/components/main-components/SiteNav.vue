@@ -39,8 +39,8 @@
                             <div id="ndd1">
                                 <ul class="navDropDowns">
                                     <li data-move><router-link to="/">Home</router-link></li>
-                                    <li data-move><router-link to="/about">About</router-link></li>
-                                    <li data-move><router-link to="/contact">Contact</router-link></li>
+                                    <li data-move><router-link to="/About">About</router-link></li>
+                                    <li data-move><router-link to="/Contact">Contact</router-link></li>
                                 </ul>
                             </div>
                         </div>
