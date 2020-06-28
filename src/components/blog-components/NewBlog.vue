@@ -4,7 +4,7 @@
 
     <h2 style="text-align: center">Write A New Blog</h2>
     <!-- ************** REMOVE novalidate ******************** -->
-    <form id="createBlog" class="blog-meta theme-border theme-shadow" novalidate> 
+    <form id="createBlog" class="blog-meta theme-border theme-shadow">
       <div class="label-row">
         <label for="title" form="createBlog">Title:</label>
         <input
