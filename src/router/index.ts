@@ -30,19 +30,32 @@ const routes: Array<RouteConfig> = [
     name: "Blogs",
     component: () =>
       import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue"),
+      children: [
+        {    
+          path: "/Blog/:id",
+          name: "Blog",
+          component: () =>
+            import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue")},
+        {
+            path: "/New-Blog",
+            name: "NewBlog",
+            component: () =>
+              import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue")
+        }
+      ]
   },
-  {
-    path: "/Blog/:id",
-    name: "Blog",
-    component: () =>
-      import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue")
-  },
-  {
-    path: "/New-Blog",
-    name: "NewBlog",
-    component: () =>
-      import(/* webpackChunkName: "CreateBlog" */ "@/components/blog-components/CreateBlog.vue")
-  },
+  // {
+  //   path: "/Blog/:id",
+  //   name: "Blog",
+  //   component: () =>
+  //     import(/* webpackChunkName: "blogs" */ "../views/Blogs.vue")
+  // },
+  // {
+  //   path: "/New-Blog",
+  //   name: "NewBlog",
+  //   component: () =>
+  //     import(/* webpackChunkName: "CreateBlog" */ "@/components/blog-components/CreateBlog.vue")
+  // },
   {
     path: "*",
     name: "Error",

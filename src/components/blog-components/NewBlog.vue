@@ -150,7 +150,7 @@ import {
 
 import { Blog } from "@/models/blog/blog.js";
 export default {
-  name: "CreateBlog",
+  name: "NewBlog",
   components: {
     EditorContent,
     "main-menu": () => import("@/components/text-editor/MainMenu.vue"),
