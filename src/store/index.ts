@@ -12,7 +12,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    blogsState,
-    auth
+    blogsState: blogsState,
+    auth: auth
   }
 });

@@ -14,17 +14,18 @@
                     <span id="logo"></span>
                 </div>
                 <div id="loginLinks">
-                    <div id="loginBtn" title="Log into site button" @click="notYetImplmeneted">
+                    <div id="loginBtn" title="Login and Account links">
                         <div>
-                            <router-link to="#" role="button">Log In<i class="down"></i></router-link>
+                            <a role="button" v-if="$store.state.auth.user !== ''">{{ this.$store.state.auth.user }}<i class="down"></i></a>
+                            <a role="button" v-else>Log In<i class="down"></i></a>
                         </div>
                         <div>
                             <ul id="login" class="loginIsClosed" data-mobile>
-                                <li data-move><router-link to="#">Register</router-link></li>
-                                <li data-move><router-link to="#">Log In</router-link></li>
-                                <li data-move><router-link to="#">Account</router-link></li>
-                                <li data-move><router-link to="#">Log out</router-link></li>
-                                <li data-move><router-link to="#">Dashboard</router-link></li>
+                                <li data-move><a @click="notYetImplmeneted"><u>Register</u></a></li>
+                                <li data-move v-if="$store.state.auth.loggedIn === false"><a  @click="$store.dispatch('auth/login', null, {root:true})"><u>Log In</u></a></li>
+                                <li data-move v-if="$store.state.auth.loggedIn === true"><a @click="$store.dispatch('auth/logout', null, {root:true})"><u>Log Out</u></a></li>
+                                <li data-move><a @click="notYetImplmeneted"><u>Account</u></a></li>
+                                <li data-move><a @click="notYetImplmeneted"><u>Dashboard</u></a></li>
                             </ul>
                         </div>
                     </div>
@@ -70,7 +71,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component
+
+@Component({
+    computed: {
+
+    }
+})
 export default class SiteNav extends Vue {
 
     mainNav: HTMLHtmlElement = {} as HTMLHtmlElement;
@@ -85,10 +91,10 @@ export default class SiteNav extends Vue {
     constructor(){
         super();
     }
-        notYetImplmeneted() {
+    notYetImplmeneted() {
       alert("Not yet implemented");
     }
-    
+
     /*
     * Hide/Show nav bar
     */

@@ -24,11 +24,6 @@ export default {
     "site-nav": SiteNav,
     "site-footer": SiteFooter
   },
-  // props: {
-  //   header: {
-  //     value: ''
-  //   }
-  // },
   data() {
     return {
       //Render header component
