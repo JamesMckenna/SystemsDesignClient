@@ -1,9 +1,11 @@
 const blogsState = {
-  state: () => ({
+  namespaced: true,
+
+  state: {
     blogs: [],
     categories: [],
     blog: {}, //TODO
-  }),
+  },
 
   getters: {
     allBlogs: state => {
@@ -60,8 +62,8 @@ const blogsState = {
   //use for async changes to data/store
   actions: {
     //This api call will have to change when backend is built.
-    async fetchBlogs({ commit }) {
-      return await fetch("/mockdata/mockBlogs.json")
+    fetchBlogs({ commit }) {
+      return fetch("/mockdata/mockBlogs.json")
         .then(response => {
           if (response.ok) {
             return response.json();

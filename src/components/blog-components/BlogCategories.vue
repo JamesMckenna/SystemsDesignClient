@@ -4,7 +4,12 @@
     <ul>
       <li v-for="category in getCategories" v-bind:key="category.id">
         <!-- <router-link to="#">{{ category.category }}</router-link> -->
-        <p class="router-link-exact-active router-link-active categories-p" @click="notYetImplmeneted">{{ category.category }}</p>
+        <p
+          class="router-link-exact-active router-link-active categories-p"
+          @click="notYetImplmeneted"
+        >
+          {{ category.category }}
+        </p>
       </li>
     </ul>
   </div>
@@ -15,11 +20,11 @@ export default {
   name: "BlogCategories",
   computed: {
     getCategories() {
-      return this.$store.getters.getCategories;
+      return this.$store.getters["blogsState/getCategories"];
     }
   },
   created: function() {
-    this.$store.dispatch("fetchCategories");
+    this.$store.dispatch("blogsState/fetchCategories");
   },
   methods: {
     notYetImplmeneted() {

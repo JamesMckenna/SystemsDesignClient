@@ -1,6 +1,7 @@
 <template>
   <div class="blogs">
     <h2>A List of Blogs</h2>
+    <!-- :numOfItems="allBlogs.length - 1" -->
     <pagination
       :numOfItems="allBlogs.length - 1"
       v-on:paginate="paginationValues($event)"
@@ -60,18 +61,18 @@ export default {
   },
   computed: {
     allBlogs() {
-      return this.$store.getters.allBlogs;
+      return this.$store.getters["blogsState/allBlogs"];
     },
     getRangeOfBlogs() {
-      return this.$store.getters.getRangeOfBlogs(this.emitPagination);
+      return this.$store.getters["blogsState/getRangeOfBlogs"](this.emitPagination);
     }
   },
   mounted: function() {
     this.emitPagination.currentItem = 1;
     this.emitPagination.getNumOfItems = 5;
   },
-  created: function() {
-    this.$store.dispatch("fetchBlogs");
+  beforeCreate: function() {
+    this.$store.dispatch("blogsState/fetchBlogs");
   }
 };
 </script>

@@ -56,9 +56,7 @@
 
     <!-- Show Blog -->
     <template v-else>
-      <keep-alive>
-        <blog></blog>
-      </keep-alive>
+      <blog></blog>
     </template>
   </div>
 </template>

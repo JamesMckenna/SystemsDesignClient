@@ -1,5 +1,5 @@
 <template>
-  <article v-if="this.$store.getters.showBlog(this.blogId)">
+  <article v-if="this.$store.getters['blogsState/showBlog'](this.blogId)">
     <h3>Title: {{ blog.title }}</h3>
     <h4>Author: {{ blog.author }}</h4>
     <p><span>Date Posted:</span> {{ blog.datePosted }}</p>
@@ -54,11 +54,11 @@ export default {
   },
   computed: {
     blog: function() {
-      return this.$store.getters.showBlog(this.blogId);
+      return this.$store.getters["blogsState/showBlog"](this.blogId);
     }
   },
   beforeCreate: function() {
-    this.$store.dispatch("fetchBlogs");
+    this.$store.dispatch("blogsState/fetchBlogs");
   },
   created: function() {
     this.blogId = this.$route.params.id;
