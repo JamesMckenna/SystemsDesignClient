@@ -1,5 +1,4 @@
 <template>
-  <!-- <article v-if="blog !== null"> Throws vue.warn message on page refresh, The below doesn't throw a vue.warn message -->
   <article v-if="this.$store.getters.showBlog(this.blogId)">
     <h3>Title: {{ blog.title }}</h3>
     <h4>Author: {{ blog.author }}</h4>

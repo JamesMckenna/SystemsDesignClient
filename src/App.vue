@@ -159,24 +159,6 @@ html {
   width: var(--width);
   min-height: 100vh;
   margin: auto auto;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background: -webkit-linear-gradient(
-    left,
-    rgba(255, 255, 255, 0.01) 0%,
-    rgba(127, 127, 127, 0.5) 40%,
-    rgba(127, 127, 127, 0.01) 50%,
-    rgba(127, 127, 127, 0.5) 60%,
-    rgba(255, 255, 255, 0.01) 100%
-  );
-  background: -o-linear-gradient(
-    left,
-    rgba(255, 255, 255, 0.01) 0%,
-    rgba(127, 127, 127, 0.5) 40%,
-    rgba(127, 127, 127, 0.01) 50%,
-    rgba(127, 127, 127, 0.5) 60%,
-    rgba(255, 255, 255, 0.01) 100%
-  );
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0.01) 0%,
@@ -185,7 +167,6 @@ html {
     rgba(127, 127, 127, 0.5) 60%,
     rgba(255, 255, 255, 0.01) 100%
   );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03ffffff', endColorstr='#03ffffff',GradientType=1 );
 }
 
 body {
@@ -197,7 +178,6 @@ body {
   width: var(--width);
   box-shadow: 0 0 200px rgba(0, 0, 0, 0.5) inset; //vinyette
 }
-
 p {
   line-height: 150%;
 }
