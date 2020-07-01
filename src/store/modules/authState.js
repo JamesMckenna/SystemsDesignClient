@@ -13,8 +13,8 @@ const authState = {
     }
   },
   mutations: {
-    SET_LOGGINEDIN_STATE: (state, data) => {
-      console.log("called SET_LOGGINEDIN_STATE");
+    SET_LOGGEDIN_STATE: (state, data) => {
+      console.log("called SET_LOGGEDIN_STATE");
       console.log(state);
       console.log(data);
       state.loggedIn = data;
@@ -32,14 +32,14 @@ const authState = {
     login({ commit }) {
       console.log("login called from state");
       const data = true;
-      commit("SET_LOGGINEDIN_STATE", data);
+      commit("SET_LOGGEDIN_STATE", data);
       const name = "James";
       commit("SET_USER_STATE", name);
     },
     logout({ commit }) {
       console.log("logout called from state");
       const data = false;
-      commit("SET_LOGGINEDIN_STATE", data);
+      commit("SET_LOGGEDIN_STATE", data);
       const name = "";
       commit("SET_USER_STATE", name);
     }
