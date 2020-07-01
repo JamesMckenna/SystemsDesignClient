@@ -4,7 +4,7 @@ const blogsState = {
   state: {
     blogs: [],
     categories: [],
-    blog: {}, //TODO
+    blog: {} //TODO
   },
 
   getters: {

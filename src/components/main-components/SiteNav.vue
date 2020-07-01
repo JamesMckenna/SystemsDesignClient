@@ -16,16 +16,15 @@
                 <div id="loginLinks">
                     <div id="loginBtn" title="Login and Account links">
                         <div>
-                            <a role="button" v-if="$store.state.auth.user !== ''">{{ this.$store.state.auth.user }}<i class="down"></i></a>
-                            <a role="button" v-else>Log In<i class="down"></i></a>
+                            <a role="button" v-if="$store.state.authState.user !== ''" aria-label="Logout Account">Hi {{ this.$store.state.authState.user }}!<i class="down"></i></a>
+                            <a role="button" v-else aria-label="Login Account">Log In<i class="down"></i></a>
                         </div>
                         <div>
                             <ul id="login" class="loginIsClosed" data-mobile>
-                                <li data-move><a @click="notYetImplmeneted"><u>Register</u></a></li>
-                                <li data-move v-if="$store.state.auth.loggedIn === false"><a  @click="$store.dispatch('auth/login', null, {root:true})"><u>Log In</u></a></li>
-                                <li data-move v-if="$store.state.auth.loggedIn === true"><a @click="$store.dispatch('auth/logout', null, {root:true})"><u>Log Out</u></a></li>
-                                <li data-move><a @click="notYetImplmeneted"><u>Account</u></a></li>
-                                <li data-move><a @click="notYetImplmeneted"><u>Dashboard</u></a></li>
+                                <li data-move v-if="$store.state.authState.loggedIn === false"><a @click="notYetImplmeneted" aria-label="Sign Up"><u>Sign Up</u></a></li>
+                                <li data-move v-if="$store.state.authState.loggedIn === false"><a  @click="$store.dispatch('authState/login', null, { root:true })" aria-label="Log In"><u>Log In</u></a></li>
+                                <li data-move v-if="$store.state.authState.loggedIn === true"><a @click="$store.dispatch('authState/logout', null, { root:true })" aria-label="Log Out"><u>Log Out</u></a></li>
+                                <li data-move v-if="$store.state.authState.loggedIn === true"><a @click="notYetImplmeneted" aria-label="Account"><u>Account</u></a></li>
                             </ul>
                         </div>
                     </div>
@@ -39,25 +38,25 @@
                             <a role="button">Home<i class="down"></i></a>
                             <div id="ndd1">
                                 <ul class="navDropDowns">
-                                    <li data-move><router-link to="/">Home</router-link></li>
-                                    <li data-move><router-link to="/About">About</router-link></li>
-                                    <li data-move><router-link to="/Contact">Contact</router-link></li>
+                                    <li data-move><router-link to="/" aria-label="Home">Home</router-link></li>
+                                    <li data-move><router-link to="/About" aria-label="About">About</router-link></li>
+                                    <li data-move><router-link to="/Contact" aria-label="Contact">Contact</router-link></li>
                                 </ul>
                             </div>
                         </div>
                     </li>
-                    <li><router-link to="/Blogs">Blogs</router-link></li>
-                    <li><router-link to="#">Placeholder</router-link></li>
-                    <li><router-link to="#">Placeholder</router-link></li>
-                    <li><router-link to="#">Placeholder</router-link></li>
+                    <li><router-link to="/Blogs" aria-label="Blogs">Blogs</router-link></li>
+                    <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
+                    <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
+                    <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
                     <li>
                         <div class="nddWrap">
-                            <a class="" role="button">Placeholder<i class="down"></i></a>
+                            <a class="" role="button" aria-label="Placeholder">Placeholder<i class="down"></i></a>
                             <div id="ndd2" class="">
                                 <ul class="navDropDowns" data-mobile>
-                                    <li><router-link to="#">Placeholder</router-link></li>
-                                    <li><router-link to="#">Placeholder</router-link></li>
-                                    <li><router-link to="#">Placeholder</router-link></li>
+                                    <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
+                                    <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
+                                    <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
                                 </ul>
                             </div>
                         </div>
@@ -489,6 +488,7 @@ export default class SiteNav extends Vue {
     background-color: transparent;
     display: inline-flex;
     z-index: inherit;
+    box-shadow: var(--boxshadow);
 }
 #mainNavBtnImg {
     width: 1.75rem;

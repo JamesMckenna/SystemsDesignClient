@@ -1,4 +1,4 @@
-const auth = {
+const authState = {
   namespaced: true,
   state: {
     loggedIn: false,
@@ -46,4 +46,4 @@ const auth = {
   }
 };
 
-export default auth;
+export default authState;
