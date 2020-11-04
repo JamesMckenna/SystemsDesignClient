@@ -78,9 +78,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
         isLoggedIn() {
             return this.$store.state.authState.loggedIn;
         },
-        // manageAccount(){
-        //     return process.env.VUE_APP_MANAGE_ACCOUNT + "?token=" + this.$store.state.authState.accessToken;
-        // }
         manageAccount(){
             return process.env.VUE_APP_MANAGE_ACCOUNT_INDEX;
         }
@@ -98,7 +95,6 @@ export default class SiteNav extends Vue {
     scrollCurrentStopped: number = 0;
 
     registerAccount: String = process.env.VUE_APP_REGISTER_ACCOUNT;
-    //manageAccount: String = process.env.VUE_APP_MANAGE_ACCOUNT + "?token="; 
 
     constructor(){
         super();
