@@ -1,8 +1,11 @@
+/* eslint-disable prettier/prettier */
 <template>
   <div id="app">
     <site-nav />
 
     <component v-bind:is="'site-header'" v-if="header"></component>
+
+    <notify-modal v-show="$store.state.authState.showRefreshModal" @close="closeModal" />
 
     <main id="injected-content">
       <router-view v-on:renderHeader="renderHeader($event)" />
@@ -15,27 +18,77 @@
 import SiteHeader from "@/components/main-components/SiteHeader.vue";
 import SiteNav from "@/components/main-components/SiteNav.vue";
 import SiteFooter from "@/components/main-components/SiteFooter.vue";
+import NotifyModal from "@/components/helper-components/NotifyModal";
 import "./styles/reset.module.css";
+import store from "./store";
 
 export default {
   name: "App",
+
   components: {
     "site-header": SiteHeader,
     "site-nav": SiteNav,
-    "site-footer": SiteFooter
+    "site-footer": SiteFooter,
+    "notify-modal": NotifyModal
   },
+
   data() {
     return {
       //Render header component
       header: false
     };
   },
+
   methods: {
     //If the view to be rendered in <router-view> emits header=true, show header.
     //It is the view's responsibility to say if the rendered page needs a header or not.
-    renderHeader: function(val) {
-      val ? (this.header = val) : (this.header = false);
+    renderHeader: function(val) { val ? (this.header = val) : (this.header = false); },
+
+    closeModal() { store.dispatch("authState/toggleShowRefreshModal"); }
+  },
+
+  created: function() {
+    if (this.$userManager != null) {
+      store.dispatch("authState/setUserManager", this.$userManager);
+
+      this.$userManager.events.addUserLoaded(function() {
+        console.log("addUserLoaded event");
+
+        store.dispatch("authState/setAuthState");
+      });
+
+      this.$userManager.events.addUserUnloaded(function() { console.log("addUserUnloaded event"); });
+
+      this.$userManager.events.addAccessTokenExpiring(() => {
+        console.log("addAccessTokenExpiring event");
+        store.dispatch("authState/startRefreshTimer");
+        });
+
+      this.$userManager.events.addAccessTokenExpired(function() {
+        store.dispatch("authState/logout");
+        this.$userManager.removeUser();
+        this.$userManager.clearStaleState();
+        location.reload();
+      });
+
+      this.$userManager.events.addSilentRenewError(function() { console.log("addSilentRenewError event"); });
+
+      this.$userManager.events.addUserSignedOut(function() { console.log("addUserSignedOut event"); });
     }
+
+    if (sessionStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != null) 
+    {
+      this.$store.dispatch("authState/setAuthState");
+    }
+  },
+
+  beforeDestroy: function() {
+    this.$userManager.events.removeUserLoaded();
+    this.$userManager.events.removeUserUnloaded();
+    this.$userManager.events.removeAccessTokenExpiring();
+    this.$userManager.events.removeAccessTokenExpired();
+    this.$userManager.events.removeSilentRenewError();
+    this.$userManager.events.removeUserSignedOut();
   }
 };
 </script>
@@ -65,6 +118,7 @@ export default {
 
   --bgcolor1: chartreuse;
   --bgcolor2: white;
+  --bgcolor3: yellow;
 }
 
 .theme-shadow {

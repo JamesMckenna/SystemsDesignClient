@@ -16,15 +16,17 @@
                 <div id="loginLinks">
                     <div id="loginBtn" title="Login and Account links">
                         <div>
-                            <a role="button" v-if="$store.state.authState.user !== ''" aria-label="Logout Account">Hi {{ this.$store.state.authState.user }}!<i class="down"></i></a>
+                            <a role="button" v-if="isLoggedIn" aria-label="Logout Account">Hi {{ this.$store.state.authState.user.name }}!<i class="down"></i></a>
                             <a role="button" v-else aria-label="Login Account">Log In<i class="down"></i></a>
                         </div>
                         <div>
-                            <ul id="login" class="loginIsClosed" data-mobile>
-                                <li data-move v-if="$store.state.authState.loggedIn === false"><a @click="notYetImplmeneted" aria-label="Sign Up"><u>Sign Up</u></a></li>
-                                <li data-move v-if="$store.state.authState.loggedIn === false"><a  @click="$store.dispatch('authState/login', null, { root:true })" aria-label="Log In"><u>Log In</u></a></li>
-                                <li data-move v-if="$store.state.authState.loggedIn === true"><a @click="$store.dispatch('authState/logout', null, { root:true })" aria-label="Log Out"><u>Log Out</u></a></li>
-                                <li data-move v-if="$store.state.authState.loggedIn === true"><a @click="notYetImplmeneted" aria-label="Account"><u>Account</u></a></li>
+                            <ul v-if="isLoggedIn" id="login" class="loginIsClosed" data-mobile>
+                                <li data-move><a :href="manageAccount" aria-label="Account"><u>Account</u></a></li>
+                                <li data-move><a @click="$store.dispatch('authState/logout', null, { root:true })" aria-label="Log Out"><u>Log Out</u></a></li>                                
+                            </ul>
+                            <ul v-if="!isLoggedIn" id="login" class="loginIsClosed" data-mobile>
+                                <li data-move><a :href="registerAccount" aria-label="Sign Up"><u>Sign Up</u></a></li>
+                                <li data-move><a @click="$store.dispatch('authState/login', null, { root:true })" aria-label="Log In"><u>Log In</u></a></li>
                             </ul>
                         </div>
                     </div>
@@ -73,7 +75,15 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
     computed: {
-
+        isLoggedIn() {
+            return this.$store.state.authState.loggedIn;
+        },
+        // manageAccount(){
+        //     return process.env.VUE_APP_MANAGE_ACCOUNT + "?token=" + this.$store.state.authState.accessToken;
+        // }
+        manageAccount(){
+            return process.env.VUE_APP_MANAGE_ACCOUNT_INDEX;
+        }
     }
 })
 export default class SiteNav extends Vue {
@@ -87,11 +97,11 @@ export default class SiteNav extends Vue {
     scrollLastStopped: number = 0;
     scrollCurrentStopped: number = 0;
 
+    registerAccount: String = process.env.VUE_APP_REGISTER_ACCOUNT;
+    //manageAccount: String = process.env.VUE_APP_MANAGE_ACCOUNT + "?token="; 
+
     constructor(){
         super();
-    }
-    notYetImplmeneted() {
-      alert("Not yet implemented");
     }
 
     /*
@@ -875,11 +885,6 @@ i {
         width: 1.625rem;
         height: 1.625rem;
         display: inline-flex;
-    }
-
-    #loginBtn > div > a {
-        transform: translateX(0%);
-        margin: auto;
     }
 
     /*---- At this screen width, #loginLinks contains logo.jpg and NOT login links. --*/

@@ -1,7 +1,22 @@
+const IS4_BASE_URL = "https://localhost:5001";
+
 module.exports = {
-  lintOnSave: false,
+  lintOnSave: true,
   publicPath: "/",
   configureWebpack: {
-    devtool: "source-map"
+    devtool: "source-map",
+    output: {
+      globalObject: "this"
+    }
+  },
+  devServer: {
+    port: "443",
+    https: true,
+    hot: false,
+    liveReload: false,
+    headers: {
+      "X-Frame-Options": "SAMEORIGIN",
+      "Content-Security-Policy": `frame-src 'self' ${IS4_BASE_URL}; frame-ancestors 'self'`
+    }
   }
 };

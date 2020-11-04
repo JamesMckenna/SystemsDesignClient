@@ -11,7 +11,7 @@
 #site-header {
   height: 10rem;
   margin-top: 5.5rem;
-  background-color: yellow;
+  background-color: var(--bgcolor3);
 }
 h2 {
   text-align: center;

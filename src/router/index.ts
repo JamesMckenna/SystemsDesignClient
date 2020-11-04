@@ -1,9 +1,19 @@
+import store from '../store';
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
+  {
+    path: "/callback.html",
+    name: "callback",
+  },
+  {
+    path: "/silent-refresh.html",
+    name: "silent-refresh",
+  },
   {
     path: "/",
     name: "Home",
@@ -40,14 +50,28 @@ const routes: Array<RouteConfig> = [
     path: "*",
     name: "Error",
     component: () =>
-      import(/* webpackChunkName: "blogs" */ "../views/Error.vue")
+      import(/* webpackChunkName: "error" */ "../views/Error.vue")
   }
 ];
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  //base: process.env.VUE_APP_BASE_URL,
+  base: "/",
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if(store.getters['authState/getLoggedIn']){
+    //logged in User is actively navigating...so renew tokens
+    Vue.prototype.$userManager.startSilentRenew();
+    setTimeout(() => { 
+      //startSilentRenew is called everytime the UserManager setting, checkSessionInterval value elapses.
+      //so to prevent silentRenew from spamming IS4 server, stop it after a renew. 
+      Vue.prototype.$userManager.stopSilentRenew();
+    }, 2000);
+  }
+  next();
 });
 
 export default router;

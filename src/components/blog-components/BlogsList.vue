@@ -64,7 +64,9 @@ export default {
       return this.$store.getters["blogsState/allBlogs"];
     },
     getRangeOfBlogs() {
-      return this.$store.getters["blogsState/getRangeOfBlogs"](this.emitPagination);
+      return this.$store.getters["blogsState/getRangeOfBlogs"](
+        this.emitPagination
+      );
     }
   },
   mounted: function() {
