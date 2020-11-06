@@ -1,23 +1,16 @@
-//THINGS TO KEEP IN MIND:
-//local storage for to presist on refresh and round trip to from auth end point, token go in session
-//session storage for email name other identity claims - id_token goes in local
-//https://stackoverflow.com/questions/48446485/retrieving-state-data-with-oidc-client
 /* eslint-disable @typescript-eslint/camelcase */
-
+import Vue from "vue";
 const authState = {
   namespaced: true,
   state: () => {
     return {
-      userManger: null,
       loggedIn: false,
-      user: null,
-      accessToken: null,
-      refreshToken: null,
-      idToken: null,
-      scopes: null,
-      isChecked: null,
-      error: null,
-      refreshTimer: null,
+      user: undefined,
+      accessToken: undefined,
+      refreshToken: undefined,
+      idToken: undefined,
+      scopes: undefined,
+      error: undefined,
       showRefreshModal: false
     };
   },
@@ -39,36 +32,18 @@ const authState = {
       return state.user;
     },
 
-    getSessionStorage: state => {
-      return sessionStorage.getItem(
-        "oidc.user:" +
-          process.env.VUE_APP_IS4_BASE_URL +
-          ":" +
-          process.env.VUE_APP_MAIN_CLIENT
-      );
+    getSessionStorage: () => {
+      return sessionStorage.getItem( "oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT );
     }
   },
 
   mutations: {
-    START_REFRESH_TIMER: (state, timer) => {
-      state.refreshTimer = timer;
+    HIDE_REFRESH_MODAL: state => {
+      state.showRefreshModal = false;
     },
 
-    STOP_REFRESH_TIMER: state => {
-      clearTimeout(state.refreshTimer);
-      state.refreshTimer = null;
-    },
-
-    TOGGLE_SHOW_REFESH_MODAL: state => {
-      if (!state.showRefreshModal) {
-        state.showRefreshModal = true;
-      } else {
-        state.showRefreshModal = false;
-      }
-    },
-
-    SET_USERMANAGER: (state, obj) => {
-      state.userManager = obj;
+    SHOW_REFRESH_MODAL: state => {
+      state.showRefreshModal = true;
     },
 
     SET_LOGGEDIN_STATE: (state, data) => {
@@ -82,74 +57,58 @@ const authState = {
 
     SET_LOGOUT_STATE: state => {
       state.loggedIn = false;
-      state.id_token = null;
-      state.user = null;
-      state.accessToken = null;
-      state.refreshToken = null;
-      state.scopes = null;
+      state.idToken = undefined;
+      state.user = undefined;
+      state.accessToken = undefined;
+      state.refreshToken = undefined;
+      state.scopes = undefined;
     },
 
-    SET_LOGGIN_ERROR: (state, error) => {
-      state.error = error;
-      console.error(state.error);
+    SET_ERROR: (state, err) => {
+      state.error = err;
+      console.error(err);
     }
   },
 
   actions: {
-    toggleShowRefreshModal({ commit }) {
-      commit("TOGGLE_SHOW_REFESH_MODAL");
+    hideRefreshModal({ commit }) {
+      commit("HIDE_REFRESH_MODAL");
     },
 
-    startRefreshTimer({ commit }) {
-      commit("STOP_REFRESH_TIMER");
-      commit(
-        "START_REFRESH_TIMER",
-        setTimeout(() => {
-          commit("TOGGLE_SHOW_REFESH_MODAL");
-        }, process.env.VUE_APP_REFRESH_MODAL)
-      );
+    showRefreshModal({ commit }) {
+      commit("SHOW_REFRESH_MODAL");
     },
 
-    stopRefreshTimer({ commit }) {
-      commit("STOP_REFRESH_TIMER");
-    },
-
-    setUserManager({ commit }, obj) {
-      commit("SET_USERMANAGER", obj);
-    },
-
-    login({ commit, state }) {
-      state.userManager.signinRedirect().catch(err => {
-        commit("SET_LOGGIN_ERROR", err);
-        console.error(err); //NEED TO LOG ERRORS TO API FOR PRESISTENCE
+    login({ commit }) {
+      Vue.prototype.$userManager.signinRedirect()
+      .catch(err => {
+        commit("SET_ERROR", err); 
       });
     },
 
-    setAuthState({ commit, state }) {
-      state.userManager.getUser().then(function(user) {
-        commit("SET_LOGGEDIN_STATE", user);
+    setAuthState({ commit }) {
+      commit("SET_LOGOUT_STATE");
+      Vue.prototype.$userManager.getUser()
+      .then(function(user) {
+        commit("SET_LOGGEDIN_STATE", user); 
+      })
+      .catch(err => {
+        commit("SET_ERROR", err); 
       });
     },
 
     setStateError({ commit }, data) {
-      commit("SET_LOGGIN_ERROR", data);
-      console.error(data); //NEED TO LOG ERRORS TO API FOR PRESISTENCE
+      commit("SET_ERROR", data);
     },
 
-    logout({ commit, state }) {
-      let idToken;
-      state.userManager.getUser().then(user => {
-        idToken = user.id_token;
+    logout({ commit }) {
+      Vue.prototype.$userManager.signoutRedirect()
+      .then(function() {
+        commit("SET_LOGOUT_STATE", false);
+      })
+      .catch(err => {
+        commit("SET_ERROR", err); 
       });
-      state.userManager
-        .signoutRedirect({
-          uri: process.env.VUE_APP_IS4_BASE_URL + "/connect/endsession",
-          id_token: idToken,
-          post_logout_redirect_uri: process.env.VUE_APP_BASAE_URL
-        })
-        .then(function() {
-          commit("SET_LOGOUT_STATE", false);
-        });
     }
   }
 };

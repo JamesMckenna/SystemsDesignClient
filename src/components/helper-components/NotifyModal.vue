@@ -11,11 +11,7 @@
           You will be logged out soon.
         </section>
         <footer class="modal-footer">
-          <button
-            type="button"
-            class="theme-button theme-shadow theme-border renew-button"
-            @click="renew"
-          >
+          <button type="button" class="theme-button theme-shadow theme-border renew-button" @click="renew">
             Don't log me out, refresh my session!
           </button>
         </footer>
@@ -31,7 +27,7 @@ export default {
 
   data() {
     return {
-      sessionLength: process.env.VUE_APP_AUTHENTICATION_DURATION * 3
+      sessionLength: process.env.VUE_APP_TOKEN_DURATION / 60
     };
   },
 
@@ -39,7 +35,6 @@ export default {
     renew() {
       if (store.getters["authState/getLoggedIn"]) {
         this.$userManager.startSilentRenew();
-        this.$emit("close");
         setTimeout(() => {
           this.$userManager.stopSilentRenew();
         }, 2000);
@@ -62,6 +57,7 @@ export default {
 
 .modal-backdrop {
   position: fixed;
+  z-index:10000;
   top: 0;
   bottom: 0;
   left: 0;

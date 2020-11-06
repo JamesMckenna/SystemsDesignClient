@@ -2,11 +2,8 @@
 <template>
   <div id="app">
     <site-nav />
-
     <component v-bind:is="'site-header'" v-if="header"></component>
-
-    <notify-modal v-show="$store.state.authState.showRefreshModal" @close="closeModal" />
-
+    <notify-modal v-show="$store.state.authState.showRefreshModal" />
     <main id="injected-content">
       <router-view v-on:renderHeader="renderHeader($event)" />
     </main>
@@ -43,52 +40,46 @@ export default {
     //If the view to be rendered in <router-view> emits header=true, show header.
     //It is the view's responsibility to say if the rendered page needs a header or not.
     renderHeader: function(val) { val ? (this.header = val) : (this.header = false); },
-
-    closeModal() { store.dispatch("authState/toggleShowRefreshModal"); }
   },
 
-  created: function() {
-    if (this.$userManager != null) {
-      store.dispatch("authState/setUserManager", this.$userManager);
-
-      this.$userManager.events.addUserLoaded(function() {
-        console.log("addUserLoaded event");
-
-        store.dispatch("authState/setAuthState");
-      });
-
-      this.$userManager.events.addUserUnloaded(function() { console.log("addUserUnloaded event"); });
-
-      this.$userManager.events.addAccessTokenExpiring(() => {
-        console.log("addAccessTokenExpiring event");
-        store.dispatch("authState/startRefreshTimer");
+  beforeCreate: function() {
+    if (this.$userManager != undefined) {
+        this.$userManager.events.addUserLoaded(function() {
+          //prevent event from calling store.dispatch("authState/hideRefreshModal") more than once
+          if (store.getters["authState/getShowRefreshModal"]) {
+            store.dispatch("authState/hideRefreshModal");
+          }
         });
 
-      this.$userManager.events.addAccessTokenExpired(function() {
-        store.dispatch("authState/logout");
-        this.$userManager.removeUser();
-        this.$userManager.clearStaleState();
-        location.reload();
-      });
+        this.$userManager.events.addAccessTokenExpiring(() => {
+          //prevent event from calling store.dispatch("authState/showRefreshModal") more than once
+          if (!store.getters["authState/getShowRefreshModal"]){
+            store.dispatch("authState/showRefreshModal");
+          }
+        });
 
-      this.$userManager.events.addSilentRenewError(function() { console.log("addSilentRenewError event"); });
+        this.$userManager.events.addAccessTokenExpired(function() {
+          store.dispatch("authState/logout");
+        });
 
-      this.$userManager.events.addUserSignedOut(function() { console.log("addUserSignedOut event"); });
+        this.$userManager.events.addSilentRenewError(function() { console.log("addSilentRenewError event"); });
     }
+    // if (localStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != undefined) 
+    // {
+    //   store.dispatch("authState/setAuthState");
+    // }
 
-    if (sessionStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != null) 
+    if (sessionStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != undefined) 
     {
-      this.$store.dispatch("authState/setAuthState");
-    }
+      store.dispatch("authState/setAuthState");
+    }    
   },
 
-  beforeDestroy: function() {
+  destroyed: function() {
     this.$userManager.events.removeUserLoaded();
-    this.$userManager.events.removeUserUnloaded();
     this.$userManager.events.removeAccessTokenExpiring();
     this.$userManager.events.removeAccessTokenExpired();
     this.$userManager.events.removeSilentRenewError();
-    this.$userManager.events.removeUserSignedOut();
   }
 };
 </script>

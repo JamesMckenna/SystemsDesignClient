@@ -1,15 +1,16 @@
 import "babel-polyfill";
 import Vue from "vue";
-import { UserManager, Log, O } from "oidc-client";
 import config from "./appConfig/authSettings";
-import App from "./App.vue";
+import { UserManager, Log } from "oidc-client";
 import router from "./router";
 import store from "./store";
+import App from "./App.vue";
+
 
 
 Vue.config.devtools = true;
 
-const userManager = new UserManager(config);
+var userManager = new UserManager(config);
 Vue.prototype.$userManager = userManager;
 
 Vue.config.productionTip = true;

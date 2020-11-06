@@ -12,8 +12,8 @@ module.exports = {
   devServer: {
     port: "443",
     https: true,
-    hot: false,
-    liveReload: false,
+    hot: true,
+    liveReload: true,
     headers: {
       "X-Frame-Options": "SAMEORIGIN",
       "Content-Security-Policy": `frame-src 'self' ${IS4_BASE_URL}; frame-ancestors 'self'`
