@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-/*(process.env.VUE_APP_TOKEN_DURATION - (process.env.VUE_APP_REFRESH_MODAL / 1000))*/
+
 import { WebStorageStateStore, InMemoryWebStorage } from "oidc-client";
 
 const config = () => {
