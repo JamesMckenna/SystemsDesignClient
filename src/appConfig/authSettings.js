@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-/*(process.env.VUE_APP_TOKEN_DURATION - (process.env.VUE_APP_REFRESH_MODAL / 1000))*/
+
 import { WebStorageStateStore, InMemoryWebStorage } from "oidc-client";
 
 const config = () => {
@@ -20,7 +20,7 @@ const config = () => {
     client_id: "MainClient",
     redirect_uri: process.env.VUE_APP_BASE_URL + "/callback.html",
     response_type: "code",
-    scope: "openid profile IdApi offline_access",
+    scope: "openid profile offline_access",
     post_logout_redirect_uri: process.env.VUE_APP_BASE_URL,
 
     monitorSession: false,
