@@ -1,22 +1,25 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html name="Callback">
 <html>
-<head>
+<head name="Callback">
     <meta charset="utf-8" />
     <title></title>
 </head>
-<body>
+<body name="Callback">
     <script src="./js/oidc-client.rsa256.slim.min.js"></script>
     <script>
-            console.log(window.parent.OidcClient);
-            console.log(window.parent.Oidc.UserManager);
-            console.log(window.parent.$userManager);
-            console.log(window.parent.store);
-        new Oidc.UserManager({ response_mode: "query", userStore: new Oidc.WebStorageStateStore({ store: sessionStorage }) }).signinRedirectCallback().then(function () {
+        new Oidc.UserManager({ response_mode: "query"}).signinRedirectCallback().then(function () {
             window.location = "/";
         })
         .catch(function (e) {
             console.error(e);
         });
+
+        // new Oidc.UserManager({ response_mode: "query", userStore: new Oidc.WebStorageStateStore({ store: sessionStorage }) }).signinRedirectCallback().then(function () {
+        //     window.location = "/";
+        // })
+        // .catch(function (e) {
+        //     console.error(e);
+        // });
 
         // new Oidc.UserManager({ response_mode: "query", userStore: new Oidc.WebStorageStateStore({ store: localStorage }) }).signinRedirectCallback().then(function (user) {
         //     window.location = "/";
