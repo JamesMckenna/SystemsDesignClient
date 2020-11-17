@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
-import { WebStorageStateStore, InMemoryWebStorage } from "oidc-client";
+import { WebStorageStateStore } from "oidc-client";
 
 const config = () => {
   return {
@@ -20,18 +20,22 @@ const config = () => {
     client_id: "MainClient",
     redirect_uri: process.env.VUE_APP_BASE_URL + "/callback.html",
     response_type: "code",
-    scope: "openid profile offline_access",
+    scope: "openid profile offline_access IdApi email",
     post_logout_redirect_uri: process.env.VUE_APP_BASE_URL,
 
-    monitorSession: false,
-    checkSessionInterval: 500,
+    checkSessionInterval: 2000,
+    monitorSession: true,
+    automaticSilentRenew: false,
+
+    filterProtocolClaims: false,
+
     revokeAccessTokenOnSignOut: true,
-    staleStateAge: 1,
+    staleStateAge: 300,
     silent_redirect_uri: process.env.VUE_APP_BASE_URL + "/silent-refresh.html",
 
     userStore: new WebStorageStateStore({ store: window.sessionStorage }) // Session storage - not shared between windows. Need to re-login when opening a new tab.
     //userStore: new WebStorageStateStore({ store: window.localStorage }) // Local storage - can share between tabs, but less secure than session storage
-    //userStore: new WebStorageStateStore({ store: new InMemoryWebStorage() }) // Can't seem to get this to work
+    //userStore: new WebStorageStateStore({ store: new InMemoryWebStorage() }) // Can't seem to get this to work, come back to it after other other functionality is completed
   }
 };
 
