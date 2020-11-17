@@ -32,14 +32,14 @@ export default {
   data() {
     return {
       //Render header component
-      header: false
+      header: false,
     };
   },
 
   methods: {
     //If the view to be rendered in <router-view> emits header=true, show header.
     //It is the view's responsibility to say if the rendered page needs a header or not.
-    renderHeader: function(val) { val ? (this.header = val) : (this.header = false); },
+    renderHeader: function(val) { val ? (this.header = val) : (this.header = false); }
   },
 
   beforeCreate: function() {
@@ -63,6 +63,10 @@ export default {
         });
 
         this.$userManager.events.addSilentRenewError(function() { console.log("addSilentRenewError event"); });
+
+        this.$userManager.events.addUserSignedOut(function() {
+          store.dispatch("authState/logout");
+        });
     }
     // if (localStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != undefined) 
     // {
@@ -80,6 +84,7 @@ export default {
     this.$userManager.events.removeAccessTokenExpiring();
     this.$userManager.events.removeAccessTokenExpired();
     this.$userManager.events.removeSilentRenewError();
+    this.$userManager.events.removeUserSignedOut();
   }
 };
 </script>
