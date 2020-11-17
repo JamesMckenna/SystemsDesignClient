@@ -14,6 +14,10 @@ module.exports = {
     https: true,
     hot: true,
     liveReload: true,
+    host: "localhost",
+    public: "https://localhost:443",
+    clientLogLevel: 'debug',
+    watchOptions: { poll: true }, 
     headers: {
       "X-Frame-Options": "SAMEORIGIN",
       "Content-Security-Policy": `frame-src 'self' ${IS4_BASE_URL}; frame-ancestors 'self'`
