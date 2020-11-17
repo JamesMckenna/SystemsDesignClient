@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <ul v-if="isLoggedIn" id="login" class="loginIsClosed" data-mobile>
-                                <li data-move><a :href="manageAccount" aria-label="Account"><u>Account</u></a></li>
+                                <li data-move><a @click="reDirect" aria-label="Account"><u>Account</u></a></li>
                                 <li data-move><a @click="$store.dispatch('authState/logout', null, { root:true })" aria-label="Log Out"><u>Log Out</u></a></li>                                
                             </ul>
                             <ul v-if="!isLoggedIn" id="login" class="loginIsClosed" data-mobile>
@@ -77,10 +77,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
     computed: {
         isLoggedIn() {
             return this.$store.state.authState.loggedIn;
-        },
-        manageAccount(){
-            return process.env.VUE_APP_MANAGE_ACCOUNT_INDEX;
-        }
+        }   
     }
 })
 export default class SiteNav extends Vue {
@@ -98,6 +95,10 @@ export default class SiteNav extends Vue {
 
     constructor(){
         super();
+    }
+
+    reDirect(): void{
+        window.location.assign(process.env.VUE_APP_IDMANAGEMENT_HOME_INDEX + "?ut=" + this.$store.getters["authState/getAccessToken"]);
     }
 
     /*
