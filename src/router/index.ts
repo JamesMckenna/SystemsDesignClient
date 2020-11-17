@@ -61,14 +61,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if(store.getters['authState/getLoggedIn']){
-    //logged in User is actively navigating...so renew tokens
-    Vue.prototype.$userManager.startSilentRenew();
-    setTimeout(() => { 
-      //startSilentRenew is called everytime the UserManager setting, checkSessionInterval value elapses.
-      //so to prevent silentRenew from spamming IS4 server, stop it after a renew. 
-      Vue.prototype.$userManager.stopSilentRenew();
-    }, 2000);
+  if(store.getters['authState/getLoggedIn'])
+  {
+    Vue.prototype.$userManager.signinSilent();
   }
   next();
 });
