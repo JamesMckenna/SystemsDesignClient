@@ -7,13 +7,11 @@ import store from "./store";
 import App from "./App.vue";
 
 
-
+Vue.config.productionTip = true;
 Vue.config.devtools = true;
 
-var userManager = new UserManager(config);
+var userManager = new UserManager(config);//use var instead of const to get in iframe
 Vue.prototype.$userManager = userManager;
-
-Vue.config.productionTip = true;
 
 Log.logger = console;
 Log.level = Log.DEBUG;
