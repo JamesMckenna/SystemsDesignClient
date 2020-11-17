@@ -16,6 +16,10 @@ const authState = {
   },
 
   getters: {
+    getRefreshToken: state => {
+      return state.refreshToken;
+    },
+
     getAccessToken: state => {
       return state.accessToken;
     },
