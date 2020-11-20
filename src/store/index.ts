@@ -1,7 +1,8 @@
 import Vuex from "vuex";
 import Vue from "vue";
-
+// @ts-ignore
 import blogsState from "./modules/blogsState.js";
+// @ts-ignore
 import authState from "./modules/authState";
 
 Vue.use(Vuex);
