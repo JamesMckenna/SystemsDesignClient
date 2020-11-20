@@ -20,6 +20,10 @@ const authState = {
       return state.refreshToken;
     },
 
+    getIdToken: state => {
+      return state.idToken;
+    },
+
     getAccessToken: state => {
       return state.accessToken;
     },
@@ -103,6 +107,11 @@ const authState = {
 
     setStateError({ commit }, data) {
       commit("SET_ERROR", data);
+    },
+
+
+    clearUserState({commit}){
+      commit("SET_LOGOUT_STATE", false);
     },
 
     logout({ commit }) {
