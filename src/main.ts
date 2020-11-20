@@ -1,6 +1,7 @@
 import "babel-polyfill";
 import Vue from "vue";
-import config from "./appConfig/authSettings";
+// @ts-ignore
+import config from "./appConfig/authSettings.js";
 import { UserManager, Log } from "oidc-client";
 import router from "./router";
 import store from "./store";
