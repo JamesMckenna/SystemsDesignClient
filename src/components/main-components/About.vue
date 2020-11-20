@@ -2,48 +2,49 @@
   <div class="body-container">
     <h2>About This Application</h2>
     <p>
-      The current project I am working on is a blogging (this) application built
-      with a VueJs client and a .NET Core backend. I will be using this
-      application as a practical example of client-serve, software architecture
-      - how to design and code a browser application. When this application is
-      finished, I will be able to blog about software engineering using the
-      Agile methodology and UML diagramming. I will upload the UML and
-      documentation for this blogging application to illustrate the Software
-      Development Lifecycle. As a result, the blogging side of this application
-      will be open-sourced so others can see the code, or even deploy and use it
-      as their own blogging platform. Links to the repo will also be included
-      once the application is ready for deployment.<br /><i
-        style="font-family: Roboto; font-size: .85rem;"
-        >I know, just what the world needs, another blogging platform.</i
-      >
+      The current project is a blogging / document creation application built with a VueJs client and .NET Core for the backend. There is a crazy amount of backend development to be completed before
+      this client application receives any lovin' - after all, a sports car with a shinning paint job and sleek body lines is just an ornament if the engine doesn't run.
+      <br />
+      <i style="font-family: Roboto; font-size: .85rem;">I understand that listing the tech stack and deploymnent environment on a public web page is considered a security risk and decided in this case, it won't be the end of the world if this app gets hacked. When it comes down to it, there's nothing to gain from hacking this app.</i>
     </p>
-    <h3>The frameworks and libraries to be used in this application</h3>
+    <h3>The Frameworks and Libraries used in this application</h3>
     <ul>
       <li>
-        VueJs for a browser client application - Currently running on VPS from a
-        hosting provider in Eastern Europe. MS Server OS. Thunderbird Email
-        Client, HmailServer, SQL Express Database.
+        VueJs for a browser client application
       </li>
       <li>
-        Identity Server 4 for Authoization and Authentication - Basic
-        implementation finished, not yet deployed. To be deployed on an Azure
-        VPS running the MS Server OS and using SQL Server for data storage.
+        Identity Server 4 for Token Signing and Token Management.
       </li>
       <li>
-        .NET Core for backend and REST API's - REST API's to be cross-platform
-        and deployed on an Amazon VPS running a Linux Distro with NOSQL data
-        storage technology.
-      </li>
-      <li>Prosemirror/Tip-tap libraries for the text editor - 60% complete</li>
-      <li>
-        An NPM module for basic image editing - planned, not researched yet.
+        Identiy Core for User management and Multi-Factor Authentication using Time-based One Time Passwords
       </li>
       <li>
-        BabylonJs WebGL Game Engine.
+        Entity Framework Core to communicate with the database.
       </li>
       <li>
-        Plans for version 2 - VR/MR/AR/XR hardware support, Convert the VueJS
-        client to a PWA, Update the backend to use Blazor, Docker Containers
+        .NET Core for the backend REST API's.
+      </li>
+      <li>
+        Tip-Tap library for the text editor, client application.
+      </li>
+    </ul>
+    <img src="@/assets/html.jpg" class="images"/> 
+    <h4>Software on the Server</h4>
+    <ul>
+      <li>
+        Running Windows Server 2019
+      </li>
+      <li>
+        SQL Server 2019 Express
+      </li>
+      <li>
+        Thunderbird Email Client
+      </li>
+      <li>
+        HmailServer relay / email server
+      </li>
+      <li>
+        Running on a VPS in Eastern Europe
       </li>
     </ul>
   </div>
@@ -65,17 +66,33 @@ export default {
 
 <style scoped>
 h2 {
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
-p,
+
+p {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 45rem;
+  margin: 1rem auto;
+}
+
 li {
   margin: 1rem auto;
-  width: 45rem;
+  max-width: 45rem;
   line-height: 1.5rem;
+  text-align: center;
 }
+
 .body-container {
   margin-top: 1rem;
-  width: 100%;
   min-height: 80vh;
+}
+
+.images {
+  display: block;
+  width: 100%;
+  max-width: 44rem;
+  height: auto;
+  margin: 2rem auto;
 }
 </style>
