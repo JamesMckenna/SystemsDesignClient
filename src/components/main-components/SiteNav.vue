@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </li>
-                    <li><router-link to="/Blogs" aria-label="Blogs">Blogs</router-link></li>
+                    <li v-show="isLoggedIn"><router-link to="/Blogs" aria-label="Blogs">Blogs</router-link></li>
                     <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
                     <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
                     <li><router-link to="#" aria-label="Placeholder">Placeholder</router-link></li>
@@ -98,7 +98,7 @@ export default class SiteNav extends Vue {
     }
 
     reDirect(): void{
-        window.location.assign(process.env.VUE_APP_IDMANAGEMENT_HOME_INDEX + "?ut=" + this.$store.getters["authState/getAccessToken"]);
+        window.location.assign(process.env.VUE_APP_IDMANAGEMENT_HOME_INDEX + "?ut=" + this.$store.getters["authState/getAccessToken"] + "&idt=" + this.$store.getters["authState/getIdToken"]);
     }
 
     /*
