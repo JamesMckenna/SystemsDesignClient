@@ -65,13 +65,13 @@ export default {
         this.$userManager.events.addSilentRenewError(function() { console.log("addSilentRenewError event"); });
 
         this.$userManager.events.addUserSignedOut(function() {
-          store.dispatch("authState/logout");
+           store.dispatch("authState/clearUserState");
+            if (sessionStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != undefined) 
+            {
+              sessionStorage.removeItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT);
+            }
         });
     }
-    // if (localStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != undefined) 
-    // {
-    //   store.dispatch("authState/setAuthState");
-    // }
 
     if (sessionStorage.getItem("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT) != undefined) 
     {
@@ -92,11 +92,16 @@ export default {
 <style lang="scss">
 /*1px = 0.0625rem, 2px = 0.125rem, 3px = 0.1875rem, 4px = 0.25rem, 5px = 0.3125rem, 8px = 0.5rem, 10px = 0.625rem, 12px = 0.75rem, 14px = 0.875rem, 16px = 1rem (base), 18px = 1.125rem, 20px = 1.25rem, 24px = 1.5rem, 30px = 1.875rem, 32px = 2rem*/
 :root {
+
+  --bgcolor1: chartreuse;
+  --bgcolor2: white;
+  --bgcolor3: yellow;
+
   --h-tag-colour: #696986;
   --shadow-text-offset: 0.0625rem 0.0625rem 0.0625rem #fff;
   --ndd-bg-colour: #dcdcdc;
   --boxshadow: 0.125rem 0.125rem 0.125rem 0.0625rem #696986;
-
+  --boxshadow-right: -0.125rem  0.125rem 0.125rem 0.0625rem #696986;
   --borderradius: 0.1875rem;
   --borderstyle: inset;
   --borderwidth: 0.1rem;
@@ -111,14 +116,13 @@ export default {
 
   font-family: Hind_Vadndara;
   --width: 100%; /* GOOD SO FAR */
-
-  --bgcolor1: chartreuse;
-  --bgcolor2: white;
-  --bgcolor3: yellow;
 }
 
 .theme-shadow {
   box-shadow: var(--boxshadow);
+}
+.theme-shadow-right {
+  box-shadow: var(--boxshadow-right);
 }
 
 .theme-border {
