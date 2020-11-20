@@ -3,6 +3,9 @@ const IS4_BASE_URL = "https://localhost:5001";
 module.exports = {
   lintOnSave: true,
   publicPath: "/",
+
+  productionSourceMap: false,
+
   configureWebpack: {
     devtool: "source-map",
     output: {
