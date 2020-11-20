@@ -2,8 +2,7 @@
   <div>
     <template v-if="this.$route.path === '/'">
       <div class="home">
-        <img alt="Vue logo" src="../assets/logo.png" />
-        <HelloWorld msg="Welcome to Your Vue.js App" />
+        <HelloWorld msg="Welcome to my test / staging server" />
       </div>
     </template>
 
