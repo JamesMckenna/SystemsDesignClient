@@ -33,9 +33,11 @@ const config = () => {
     staleStateAge: 300,
     silent_redirect_uri: process.env.VUE_APP_BASE_URL + "/silent-refresh.html",
 
-    userStore: new WebStorageStateStore({ store: window.sessionStorage }) // Session storage - not shared between windows. Need to re-login when opening a new tab.
-    //userStore: new WebStorageStateStore({ store: window.localStorage }) // Local storage - can share between tabs, but less secure than session storage
-    //userStore: new WebStorageStateStore({ store: new InMemoryWebStorage() }) // Can't seem to get this to work, come back to it after other other functionality is completed
+    userStore: new WebStorageStateStore({ store: window.sessionStorage })
+
+    // TODO: Implement this - should be able to access userStore as console.log(this.$userManager.settings.userStore.get("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT));
+    // InMemoryWebStorage has a getItem(), setItem() that returns as promise.
+    //userStore: new WebStorageStateStore({ store: new InMemoryWebStorage() }) 
   }
 };
 
