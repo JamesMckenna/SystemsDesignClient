@@ -1,19 +1,21 @@
 <template>
   <div class="hello">
     <h2>{{ msg }}</h2>
-    <p>I am chipping away at an enterprise type of application. Following Service Oriented Architecture, the idea is to build the base software functionality in such a way that any business can add to it and customize to suit their needs.</p> 
+    <p>I have spent time researching, designing and coding a ‘base’ for enterprise software, and now the hard part comes: writing, (and I use the term loosely) engaging, content for visitors to this site.</p> 
  
-    <p> So for a base, Authentication and Authorization is must. Some sort of document creation, blog and/or text editting functionality will be needed. Where a person could can open up the a browser, log in and navigate to a page that has text editting functionality, produce some sort of written content and save as pdf or save as blog content. The application will need a public facing website as well as an administrator's client application.</p>
+    <p>Following Service Oriented Architecture (SOA), the idea is to build the base software functionality in such a way that any organization can add to it and customize to suit their needs. For a base, authentication and authorization are a must. The application will need a public facing website as well as an administrator's client application. Blogging functionality could be useful for ‘base functionality’ of an enterprise application.  From there, organization specific services can be added as needed.</p>
 
-    <p>As of now, authentication has been implemented. The User can enable MFA using TOTP, can add and verify phone number, change password and forgot password. The User Model is a barebones IdentityUser and will need more properties at some point.</p>
+    <p>As of now, authentication is complete. A User can register a new account with email verification, add and verify phone a number via SMS, change password and forgot password, and enable 2FA using TOTP. The ApplicationUser model is barebones and inherits from the base IdentityUser class of the ASP.Net Core Identity Framework - custom ApplicationUser properties will be added in later SDLC, iterations.</p>
 
     <img src="@/assets/VSSS.png" class="images"/> 
 
-    <p>Currently, I am in the Analysis phase for the authorization use cases. Designing authorization policies, user claims and (probably) user roles - so a combination of claims and roles authorization policies. Once I have decided on the which default cliams and roles will be required for generic authorization, I can start the Design and Implementation phases. An Administrator UI / CRUD Endpoints will be required in order to taylor Authorization polices to specific business needs.</p>
+    <p>Currently, I am in the Analysis phase for the authorization use cases, designing authorization policies, user claims and (probably) user roles - so a combination of claims-based and roles-based, authorization policies. Once I have decided on the base policies that will be required for generic authorization, I can start the Design and Implementation phases. An Administrator UI / CRUD Endpoints will be required in order to tailor authorization polices and user administration to specific organizational needs.</p>
 
     <img src="@/assets/VueSS.png" class="images"/>
-    
-    <p>Following the completion of authorization, comes the main client UI. As one can see, right now it is in serious need of some lovin'. Also, the document creation functionality will need to be completed as well as an API and database to accompany the main client. I am leaning towards VueJs / Net Core using a backend for front end architecture; though I like what I've seen from Blazor and may choose that route for a client framework. So I will eventually get to a unfied style across the UI's (main client, Id management, Identity Server 4 log in / log out)</p>
+
+    <p>Following the completion of authorization, come the clients. As one can see, right now they are in serious need of some lovin'. Also, the blog creation functionality will need an API and storage layer to accompany the main client. I am leaning towards VueJs / Net Core using a backend for frontend architecture, though I like what I have seen from Blazor and may choose that route for a client framework. So I will eventually unify the style across the UI's (Main Client, Id Management, Identity Server 4 log in / log out).</p>
+
+    <p>For this software to embrace SOA, client applications - and the API’s to service those client applications - will need to be added to the token management system without needing to re-publish and re-deploy the ‘base functionality’ application.  The token management application (built with Identity Server 4), will need a UI so that a developer can add the resources as they are developed and are ready for production deployment.</p>
     
     <router-view></router-view>
   </div>
