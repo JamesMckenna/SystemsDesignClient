@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <ul v-if="isLoggedIn" id="login" class="loginIsClosed" data-mobile>
-                                <li data-move><a @click="reDirect" aria-label="Account"><u>Account</u></a></li>
+                                <li data-move><a @click="redirect" aria-label="Account"><u>Account</u></a></li>
                                 <li data-move><a @click="$store.dispatch('authState/logout', null, { root:true })" aria-label="Log Out"><u>Log Out</u></a></li>                                
                             </ul>
                             <ul v-if="!isLoggedIn" id="login" class="loginIsClosed" data-mobile>
@@ -97,8 +97,8 @@ export default class SiteNav extends Vue {
         super();
     }
 
-    reDirect(): void{
-        window.location.assign(process.env.VUE_APP_IDMANAGEMENT_HOME_INDEX + "?ut=" + this.$store.getters["authState/getAccessToken"] + "&idt=" + this.$store.getters["authState/getIdToken"]);
+    redirect(): void {
+        window.location.assign(process.env.VUE_APP_IDMANAGEMENT_BASE_URL + "/Account/Login");
     }
 
     /*
