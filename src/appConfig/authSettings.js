@@ -23,17 +23,19 @@ const config = () => {
     scope: "openid profile offline_access IdApi email",
     post_logout_redirect_uri: process.env.VUE_APP_BASE_URL,
 
+    accessTokenExpiringNotificationTime: 150,
+
     checkSessionInterval: 2000,
     monitorSession: true,
     automaticSilentRenew: false,
 
-    filterProtocolClaims: false,
+    filterProtocolClaims: true,
 
     revokeAccessTokenOnSignOut: true,
     staleStateAge: 300,
     silent_redirect_uri: process.env.VUE_APP_BASE_URL + "/silent-refresh.html",
 
-    userStore: new WebStorageStateStore({ store: window.sessionStorage })
+    userStore: new WebStorageStateStore({ store: window.sessionStorage }) //This is acceptable from a security stand point, but best to use inmemorystorage and obufuscate js code.
 
     // TODO: Implement this - should be able to access userStore as console.log(this.$userManager.settings.userStore.get("oidc.user:" + process.env.VUE_APP_IS4_BASE_URL + ":" + process.env.VUE_APP_MAIN_CLIENT));
     // InMemoryWebStorage has a getItem(), setItem() that returns as promise.
