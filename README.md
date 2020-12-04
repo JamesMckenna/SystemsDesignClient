@@ -11,7 +11,7 @@ On the Create Blog page, a library such as [ProseMirror](https://prosemirror.net
 
 Another example where an client app can be 'split as server rendered or client rendered' would be the static pages of a website. They can be built as a traditional SPA where as any webpage containing dynamic content, or where the user enters content / data, would be rendered server-side. 
 
-In short, I like the security server-side rendering offers, but don't believe a client needs to contact the backend for every little user interaction.
+In short, I like the security server-side rendering offers, but don't believe a client needs to contact the backend for every little user interaction. Take advantage of the improvements made to hardware and off load processing to the client when it makes sense to do so.
 
 Client frameworks being considered:
 * VueJs, 
